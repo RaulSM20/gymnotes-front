@@ -56,6 +56,7 @@ export const HomePage = () => {
             {routines.map((routine) => (
               <RoutineList
                 key={routine.id}
+                id={routine.id}
                 name={routine.name}
                 description={routine.description}
                 difficulty={routine.difficulty}

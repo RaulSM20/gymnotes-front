@@ -7,14 +7,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 
 interface RoutineListProps {
+  id: number;
   name: string;
   description: string;
   difficulty: string;
 }
 
 export const RoutineList: React.FC<RoutineListProps> = ({
+  id,
   name,
   description,
   difficulty,
@@ -28,7 +31,9 @@ export const RoutineList: React.FC<RoutineListProps> = ({
         </CardHeader>
         <CardContent>{difficulty}</CardContent>
         <CardFooter className="flex justify-center">
-          <Button className="hover:bg-slate-800">Enter</Button>
+          <Link to={`/routines/${id}`}>
+            <Button className="hover:bg-slate-800">Enter</Button>
+          </Link>
         </CardFooter>
       </Card>
     </>
