@@ -1,4 +1,4 @@
-import { RoutineExercise } from "@/components/routine-exercise";
+import { RoutineExercise } from "@/components/Routine/routine-exercise";
 import { Button } from "@/components/ui/button";
 import { Link, useParams } from "react-router-dom";
 
