@@ -1,6 +1,6 @@
-# GymApp
+# GymNotes
 
-GymApp es una aplicación web desarrollada con React, TypeScript y Vite, que permite a los usuarios explorar diferentes rutinas de ejercicios y crear sus propias rutinas personalizadas. La aplicación está diseñada para ayudar a los usuarios a organizar y gestionar sus entrenamientos de manera eficiente.
+GymNotes es una aplicación web desarrollada con React, TypeScript y Vite, que permite a los usuarios explorar diferentes rutinas de ejercicios y crear sus propias rutinas personalizadas. La aplicación está diseñada para ayudar a los usuarios a organizar y gestionar sus entrenamientos de manera eficiente.
 
 ## Características
 
