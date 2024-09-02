@@ -1,9 +1,9 @@
 import { RouteObject } from "react-router-dom";
 import { Layout } from "./layout";
-import App from "./App";
 import { RegisterPage } from "./pages/register/RegisterPage";
 import { HomePage } from "./pages/Home/HomePage";
 import { RoutinePage } from "./pages/Routine/RoutinePage";
+import { LoginPage } from "./pages/Login/LoginPage";
 export const routes: RouteObject[] = [
   {
     path: "/",
@@ -11,7 +11,7 @@ export const routes: RouteObject[] = [
     children: [
       {
         path: "/",
-        element: <App />,
+        element: <LoginPage />,
       },
       {
         path: "/register",

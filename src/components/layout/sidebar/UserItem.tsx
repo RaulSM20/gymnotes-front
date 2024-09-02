@@ -1,32 +1,6 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-
 export const UserItem = () => {
-  interface User {
-    username: string;
-    country: string;
-  }
-
-  const [user, setUser] = useState<User | null>(null);
-  const apiUsers = "http://localhost:8080/api/user/users";
-  const token = localStorage.getItem("token");
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(apiUsers, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setUser(response.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, [token]);
+  const userJson = localStorage.getItem("user");
+  const user = userJson ? JSON.parse(userJson) : null;
 
   return (
     <>
@@ -37,7 +11,6 @@ export const UserItem = () => {
           </div>
           <div>
             <p className="font-bold">{user.username}</p>
-            <p className="text-neutral-400">{user.country}</p>
           </div>
         </div>
       ) : (

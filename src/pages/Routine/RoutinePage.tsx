@@ -1,3 +1,4 @@
+import { Sidebar } from "@/components/layout/sidebar/Sidebar";
 import { RoutineExercise } from "@/components/Routine/routine-exercise";
 import { Button } from "@/components/ui/button";
 import { Link, useParams } from "react-router-dom";
@@ -9,12 +10,16 @@ export const RoutinePage = () => {
 
   return (
     <>
-      <div>
-        <Link to={"/home"}>
-          <Button>Home</Button>
-        </Link>
+      <div id="layout" className="flex items-start justify-between"></div>
+      <Sidebar />
+      <div className="w-full h-full">
+        <div>
+          <Link to={"/home"}>
+            <Button>Home</Button>
+          </Link>
 
-        <RoutineExercise routineId={parseInt(id)} />
+          <RoutineExercise routineId={parseInt(id)} />
+        </div>
       </div>
     </>
   );

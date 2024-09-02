@@ -1,4 +1,3 @@
-import { Button } from "./components/ui/button";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -21,12 +20,14 @@ import {
 } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { HomePage } from "./pages/Home/HomePage";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
-function App() {
+export const LoginPage = () => {
   const urlServer = "http://127.0.0.1:8080/";
   const urlApi = urlServer + "auth/login";
   const [loginSuccessful, setLoginSuccessful] = useState(false);
+  const navigate = useNavigate();
 
   const formSchema = z.object({
     username: z.string().min(2, {
@@ -62,6 +63,14 @@ function App() {
       .then((result) => {
         if (result.token) {
           localStorage.setItem("token", result.token);
+          localStorage.setItem(
+            "user",
+            JSON.stringify({
+              id: result.id,
+              username: result.username,
+            })
+          );
+
           setLoginSuccessful(true);
         }
       })
@@ -69,11 +78,10 @@ function App() {
         console.log(error);
       });
   }
-
   return (
     <>
       {loginSuccessful ? (
-        <HomePage />
+        navigate("/home")
       ) : (
         <>
           <div className="md:hidden h-screen">
@@ -186,6 +194,4 @@ function App() {
       )}
     </>
   );
-}
-
-export default App;
+};
