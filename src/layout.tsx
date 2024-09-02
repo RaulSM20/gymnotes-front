@@ -5,7 +5,6 @@ export const Layout = () => {
     <div id="layout" className="flex items-start justify-between">
       <div className="w-full h-full">
         <Outlet />
-        test
       </div>
     </div>
   );
