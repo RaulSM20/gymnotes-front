@@ -2,7 +2,6 @@ import axios from "axios";
 
 import { useEffect, useState } from "react";
 import { RoutineList } from "../../components/Routine/RoutineList";
-import { Sidebar } from "@/components/layout/sidebar/Sidebar";
 
 interface Routine {
   id: number;
@@ -39,7 +38,6 @@ export const HomePage = () => {
   return (
     <>
       <div id="layout" className="flex items-start justify-between">
-        <Sidebar />
         <div className="w-full h-full">
           <div className="grid grid-cols-5 gap-5 w-11/12 h-[760px] m-3">
             <div className="border-gray-200 rounded border col-span-5">

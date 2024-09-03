@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 export const Sidebar = () => {
   return (
     <>
-      <div className=" flex flex-col gap-4 w-[300px] min-w-[300px] border-r min-h-screen p-4">
+      <div className="fixed flex flex-col gap-4 w-[300px] min-w-[300px] border-r min-h-screen p-4">
         <div>
           <UserItem />
         </div>
@@ -23,12 +23,17 @@ export const Sidebar = () => {
             <CommandList>
               <CommandEmpty>No results found.</CommandEmpty>
               <CommandGroup heading="Menu">
-                <CommandItem className="flex gap-2">
-                  <Dumbbell />
-                  <Link to={"/home"}>Routines</Link>
+                <CommandItem>
+                  <Link to={"/"} className="flex gap-2 hover:font-bold">
+                    <Dumbbell />
+                    Routines
+                  </Link>
                 </CommandItem>
-                <CommandItem className="flex gap-2">
-                  <SquareUserRound /> <Link to={"#"}>Profile</Link>
+                <CommandItem>
+                  <Link to={"#"} className="flex gap-2 hover:font-bold">
+                    <SquareUserRound />
+                    Profile
+                  </Link>
                 </CommandItem>
               </CommandGroup>
             </CommandList>

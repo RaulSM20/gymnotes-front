@@ -6,19 +6,10 @@ import { RoutinePage } from "./pages/Routine/RoutinePage";
 import { LoginPage } from "./pages/Login/LoginPage";
 export const routes: RouteObject[] = [
   {
-    path: "/",
     element: <Layout />,
     children: [
       {
         path: "/",
-        element: <LoginPage />,
-      },
-      {
-        path: "/register",
-        element: <RegisterPage />,
-      },
-      {
-        path: "/Home",
         element: <HomePage />,
       },
       {
@@ -26,5 +17,13 @@ export const routes: RouteObject[] = [
         element: <RoutinePage />,
       },
     ],
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/register",
+    element: <RegisterPage />,
   },
 ];

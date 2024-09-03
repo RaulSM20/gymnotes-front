@@ -81,7 +81,7 @@ export const LoginPage = () => {
   return (
     <>
       {loginSuccessful ? (
-        navigate("/home")
+        navigate("/")
       ) : (
         <>
           <div className="md:hidden h-screen">

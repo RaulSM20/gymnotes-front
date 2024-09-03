@@ -1,4 +1,3 @@
-import { Sidebar } from "@/components/layout/sidebar/Sidebar";
 import { RoutineExercise } from "@/components/Routine/routine-exercise";
 import { useParams } from "react-router-dom";
 
@@ -9,8 +8,7 @@ export const RoutinePage = () => {
 
   return (
     <>
-      <div className="flex items-start justify-between">
-        <Sidebar />
+      <div className="flex items-start justify-between mt-4">
         <div className="w-full h-full">
           <div>
             <RoutineExercise routineId={parseInt(id)} />
