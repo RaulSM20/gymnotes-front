@@ -8,6 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { FollowButton } from "./FollowButton";
 
 interface Exercise {
   id: number;
@@ -23,6 +24,9 @@ interface RoutineExercise {
   exercise: Exercise;
   session: string;
 }
+interface users {
+  id: number;
+}
 
 interface Routine {
   id: number;
@@ -30,14 +34,17 @@ interface Routine {
   description: string;
   difficulty: string;
   routineExercise: RoutineExercise[];
+  users: users;
 }
 
 export const RoutineExercise = ({ routineId }: { routineId: number }) => {
   const [routine, setRoutine] = useState<Routine | null>(null);
-  const apiRoutine = `http://localhost:8080/api/gym/routines/${routineId}`;
-  const token = localStorage.getItem("token");
   const [sessionA, setSessionA] = useState<RoutineExercise[]>([]);
   const [sessionB, setSessionB] = useState<RoutineExercise[]>([]);
+  const apiRoutine = `http://localhost:8080/api/gym/routines/${routineId}`;
+  const token = localStorage.getItem("token");
+  const userJson = localStorage.getItem("user");
+  const user = userJson ? JSON.parse(userJson) : null;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,6 +61,7 @@ export const RoutineExercise = ({ routineId }: { routineId: number }) => {
     };
 
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [routineId, token]);
 
   useEffect(() => {
@@ -136,6 +144,7 @@ export const RoutineExercise = ({ routineId }: { routineId: number }) => {
               </Table>
             </div>
           </div>
+          <FollowButton routineid={routine.id} userid={user.id} />
         </>
       ) : (
         <p>Loading...</p>

@@ -33,8 +33,6 @@ export const HomePage = () => {
     fetchData();
   }, [token]);
 
-  console.log(routines);
-
   return (
     <>
       <div id="layout" className="flex items-start justify-between">
