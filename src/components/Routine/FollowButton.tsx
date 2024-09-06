@@ -4,11 +4,13 @@ import { Button } from "../ui/button";
 interface followButtonProps {
   routineid: number;
   userid: number;
+  onFollowed?: () => void;
 }
 
 export const FollowButton: React.FC<followButtonProps> = ({
   routineid,
   userid,
+  onFollowed,
 }) => {
   const followRoutine = () => {
     const apiRoutine = `http://localhost:8080/api/user/${userid}/routines/${routineid}`;
@@ -26,6 +28,7 @@ export const FollowButton: React.FC<followButtonProps> = ({
       )
       .then(() => {
         alert("Routine followed successfully!");
+        onFollowed?.();
       })
       .catch((e) => {
         console.error("Error " + e);

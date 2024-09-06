@@ -1,4 +1,4 @@
-import { Dumbbell, SquareUserRound } from "lucide-react";
+import { BicepsFlexed, Dumbbell, SquareUserRound } from "lucide-react";
 import { UserItem } from "./UserItem";
 import {
   Command,
@@ -33,6 +33,15 @@ export const Sidebar = () => {
                   <Link to={"#"} className="flex gap-2 hover:font-bold">
                     <SquareUserRound />
                     Profile
+                  </Link>
+                </CommandItem>
+                <CommandItem>
+                  <Link
+                    to={"/routines/myroutine"}
+                    className="flex gap-2 hover:font-bold"
+                  >
+                    <BicepsFlexed />
+                    My Routine
                   </Link>
                 </CommandItem>
               </CommandGroup>

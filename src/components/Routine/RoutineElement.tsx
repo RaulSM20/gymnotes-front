@@ -9,14 +9,14 @@ import {
 } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 
-interface RoutineListProps {
+interface RoutineElementProps {
   id: number;
   name: string;
   description: string;
   difficulty: string;
 }
 
-export const RoutineList: React.FC<RoutineListProps> = ({
+export const RoutineElement: React.FC<RoutineElementProps> = ({
   id,
   name,
   description,
@@ -30,9 +30,9 @@ export const RoutineList: React.FC<RoutineListProps> = ({
           <CardDescription>{description}</CardDescription>
         </CardHeader>
         <CardContent>{difficulty}</CardContent>
-        <CardFooter className="flex justify-center">
+        <CardFooter className="flex justify-center align-bottom">
           <Link to={`/routines/${id}`}>
-            <Button className="hover:bg-slate-800">Enter</Button>
+            <Button className=" bg-black hover:bg-slate-800">Enter</Button>
           </Link>
         </CardFooter>
       </Card>

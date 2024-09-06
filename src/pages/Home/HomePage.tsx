@@ -1,37 +1,9 @@
-import axios from "axios";
-
-import { useEffect, useState } from "react";
-import { RoutineList } from "../../components/Routine/RoutineList";
-
-interface Routine {
-  id: number;
-  name: string;
-  description: string;
-  difficulty: string;
-}
+import { RoutineElement } from "@/components/Routine/RoutineElement";
+import { Button } from "@/components/ui/button";
+import { useRoutines } from "@/hooks/useRoutines";
 
 export const HomePage = () => {
-  const apiRoutines = "http://localhost:8080/api/gym/routines";
-
-  const [routines, setRoutines] = useState<Routine[]>([]);
-  const token = localStorage.getItem("token");
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(apiRoutines, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setRoutines(response.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, [token]);
+  const { routines, refetch, isLoading } = useRoutines();
 
   return (
     <>
@@ -43,7 +15,7 @@ export const HomePage = () => {
               <div className="p-10 w-full grid grid-cols-3 gap-14 text-center "></div>
               <div className=" m-3 flex gap-14">
                 {routines.map((routine) => (
-                  <RoutineList
+                  <RoutineElement
                     key={routine.id}
                     id={routine.id}
                     name={routine.name}
@@ -52,6 +24,9 @@ export const HomePage = () => {
                   />
                 ))}
               </div>
+              <Button onClick={refetch} disabled={isLoading}>
+                {isLoading ? "Cargando..." : "Volver a cargar"}
+              </Button>
             </div>
           </div>
         </div>

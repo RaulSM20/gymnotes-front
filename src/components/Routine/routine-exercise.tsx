@@ -9,57 +9,34 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { FollowButton } from "./FollowButton";
-
-interface Exercise {
-  id: number;
-  name: string;
-  description: string;
-}
-
-interface RoutineExercise {
-  id: number;
-  numSeries: number;
-  numRep: number;
-  rir: number;
-  exercise: Exercise;
-  session: string;
-}
-interface users {
-  id: number;
-}
-
-interface Routine {
-  id: number;
-  name: string;
-  description: string;
-  difficulty: string;
-  routineExercise: RoutineExercise[];
-  users: users;
-}
+import { useUser } from "@/hooks/useUser";
+import { Routine } from "@/interfaces/Routine.interface";
+import { RoutineExercise as IRoutineExercise } from "@/interfaces/RoutineExercise.interface";
 
 export const RoutineExercise = ({ routineId }: { routineId: number }) => {
   const [routine, setRoutine] = useState<Routine | null>(null);
-  const [sessionA, setSessionA] = useState<RoutineExercise[]>([]);
-  const [sessionB, setSessionB] = useState<RoutineExercise[]>([]);
+  const [sessionA, setSessionA] = useState<IRoutineExercise[]>([]);
+  const [sessionB, setSessionB] = useState<IRoutineExercise[]>([]);
   const apiRoutine = `http://localhost:8080/api/gym/routines/${routineId}`;
-  const token = localStorage.getItem("token");
-  const userJson = localStorage.getItem("user");
-  const user = userJson ? JSON.parse(userJson) : null;
+
+  const { token, user } = useUser();
+
+  const [isFollowed, setIsFollowed] = useState<boolean>(false);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(apiRoutine, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setRoutine(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(apiRoutine, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setRoutine(response.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [routineId, token]);
@@ -71,8 +48,8 @@ export const RoutineExercise = ({ routineId }: { routineId: number }) => {
   }, [routine]);
 
   const asignSession = (routine: Routine) => {
-    const sessionAExercises: RoutineExercise[] = [];
-    const sessionBExercises: RoutineExercise[] = [];
+    const sessionAExercises: IRoutineExercise[] = [];
+    const sessionBExercises: IRoutineExercise[] = [];
 
     routine.routineExercise.forEach((re) => {
       if (re.session.toLowerCase() === "a") {
@@ -84,6 +61,15 @@ export const RoutineExercise = ({ routineId }: { routineId: number }) => {
 
     setSessionA(sessionAExercises);
     setSessionB(sessionBExercises);
+  };
+
+  useEffect(() => {
+    console.log("routine changed");
+    setIsFollowed(routine?.users.some((u) => u.id === user.id) ?? false);
+  }, [routine]);
+
+  const onRoutineFollowed = () => {
+    fetchData();
   };
 
   return (
@@ -144,7 +130,15 @@ export const RoutineExercise = ({ routineId }: { routineId: number }) => {
               </Table>
             </div>
           </div>
-          <FollowButton routineid={routine.id} userid={user.id} />
+          {isFollowed ? (
+            <p>You are following this routine</p>
+          ) : (
+            <FollowButton
+              routineid={routine.id}
+              userid={user.id}
+              onFollowed={onRoutineFollowed}
+            />
+          )}
         </>
       ) : (
         <p>Loading...</p>
